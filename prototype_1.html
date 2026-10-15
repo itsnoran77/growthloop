@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Concept Prototype — Meaningful Progress App</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF1EF;--surf:#fff;--soft:#F3F5F4;--ink:#1F2624;--mute:#7C8682;--line:#E1E6E3;--g:#1F9D6B;--gd:#0F5F46;--mint:#DDF3E8;--sage:#A8D5BA;--sh:0 1px 2px rgba(15,40,30,.06),0 8px 24px rgba(15,40,30,.07);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121715;--surf:#1B2320;--soft:#232C29;--ink:#EEF3F0;--mute:#98A39E;--line:#2E3935;--mint:#1D3A2F;--sage:#2E6B52;--gd:#6FD3A5}}
+:root[data-theme="dark"]{--bg:#121715;--surf:#1B2320;--soft:#232C29;--ink:#EEF3F0;--mute:#98A39E;--line:#2E3935;--mint:#1D3A2F;--sage:#2E6B52;--gd:#6FD3A5}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Figtree,system-ui,-apple-system,"Segoe UI",sans-serif}
+.stage{min-height:100vh;display:flex;gap:56px;align-items:center;justify-content:center;padding:24px;flex-wrap:wrap}
+.intro{max-width:340px}.intro h1{font-size:34px;line-height:1.1;margin:0 0 12px;letter-spacing:-.02em;color:var(--gd)}
+.intro p{color:var(--mute);line-height:1.55;margin:0 0 16px}
+.tag{display:inline-block;background:var(--mint);color:var(--gd);font-weight:700;font-size:12px;padding:5px 10px;border-radius:99px;margin-bottom:14px}
+.jump{display:flex;flex-wrap:wrap;gap:8px}.jump button{border:1px solid var(--line);background:var(--surf);color:var(--ink);padding:8px 12px;border-radius:99px;font:600 13px Figtree,sans-serif;cursor:pointer}
+.jump button:hover{border-color:var(--g)}
+.phone{width:380px;max-width:100%;height:780px;max-height:92vh;background:var(--surf);border-radius:44px;border:9px solid #2B2F2E;box-shadow:var(--sh);display:flex;flex-direction:column;overflow:hidden;position:relative}
+.top{padding:14px 22px 6px;display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--mute)}
+.scr{flex:1;overflow-y:auto;padding:6px 20px 18px;scrollbar-width:none}.scr::-webkit-scrollbar{display:none}
+h2{font-size:25px;letter-spacing:-.02em;margin:8px 0 4px}h3{font-size:15px;margin:0 0 8px}
+.sub{color:var(--mute);font-size:14px;line-height:1.45;margin:0 0 16px}
+.card{background:var(--soft);border-radius:18px;padding:14px;margin-bottom:12px}
+.card.w{background:var(--surf);border:1px solid var(--line)}.card.m{background:var(--mint)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{border:1.5px solid var(--line);background:var(--surf);color:var(--ink);padding:9px 13px;border-radius:99px;font:600 13px Figtree,sans-serif;cursor:pointer}
+.chip.on{background:var(--g);border-color:var(--g);color:#fff}
+.btn{width:100%;border:0;background:var(--g);color:#fff;padding:14px;border-radius:16px;font:700 15px Figtree,sans-serif;cursor:pointer}
+.btn.o{background:var(--surf);color:var(--gd);border:1.5px solid var(--sage)}.btn:focus-visible,.chip:focus-visible,.nav button:focus-visible{outline:3px solid var(--g);outline-offset:2px}
+.dots{display:flex;gap:6px;margin:6px 0 14px}.dots i{height:5px;flex:1;border-radius:9px;background:var(--line)}.dots i.on{background:var(--g)}
+.row{display:flex;align-items:center;gap:12px}.sp{justify-content:space-between}
+.hab{display:flex;align-items:center;gap:12px;padding:12px;background:var(--surf);border:1px solid var(--line);border-radius:14px;margin-bottom:8px;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit}
+.ck{width:24px;height:24px;border-radius:50%;border:2px solid var(--sage);display:grid;place-items:center;flex:none;color:#fff;font-size:14px}
+.hab.done .ck{background:var(--g);border-color:var(--g)}.hab.done b{text-decoration:line-through;color:var(--mute)}
+.hab small{display:block;color:var(--mute);font-size:12px;margin-top:2px}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g);border-radius:9px;transition:width .4s}
+.nav{display:flex;border-top:1px solid var(--line);padding:8px 6px calc(10px + env(safe-area-inset-bottom,0px));background:var(--surf)}
+.nav button{flex:1;border:0;background:none;color:var(--mute);font:600 11px Figtree,sans-serif;display:grid;gap:3px;justify-items:center;padding:6px 0;cursor:pointer;border-radius:12px}
+.nav button.on{color:var(--g)}.nav svg{width:22px;height:22px}
+.seg{display:flex;background:var(--soft);border-radius:12px;padding:3px;margin-bottom:12px}.seg button{flex:1;border:0;background:none;padding:8px 4px;border-radius:10px;font:600 13px Figtree,sans-serif;color:var(--mute);cursor:pointer}.seg button.on{background:var(--surf);color:var(--gd);box-shadow:var(--sh)}
+.step{display:flex;gap:12px;align-items:center;padding:12px;border-radius:14px;margin-bottom:8px;background:var(--soft)}
+.step .n{width:34px;height:34px;border-radius:10px;background:var(--sage);display:grid;place-items:center;font-weight:800;color:var(--gd)}
+.step.cur{background:var(--mint);outline:2px solid var(--g)}
+.chart{display:flex;align-items:flex-end;gap:8px;height:110px;margin-top:8px}.chart div{flex:1;text-align:center;font-size:11px;color:var(--mute)}.chart i{display:block;border-radius:8px 8px 4px 4px;background:var(--sage);margin-bottom:4px}.chart .t i{background:var(--g)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.met{background:var(--soft);border-radius:14px;padding:12px}.met b{font-size:20px;color:var(--gd)}.met span{display:block;color:var(--mute);font-size:12px}
+.post{padding:12px 0;border-bottom:1px solid var(--line)}.av{width:34px;height:34px;border-radius:50%;background:var(--mint);color:var(--gd);display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+.enc{border:1px solid var(--sage);background:none;color:var(--gd);border-radius:99px;padding:6px 12px;font:600 12px Figtree,sans-serif;cursor:pointer;margin-top:8px}.enc.on{background:var(--mint)}
+.tg{position:relative;width:46px;height:26px;border-radius:99px;background:var(--line);border:0;cursor:pointer;flex:none}.tg:after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s}.tg.on{background:var(--g)}.tg.on:after{left:23px}
+.sheet{position:absolute;inset:0;background:rgba(15,25,20,.45);display:flex;align-items:flex-end;z-index:5}.sheet>div{background:var(--surf);width:100%;border-radius:26px 26px 0 0;padding:20px;max-height:85%;overflow:auto}
+.ring{position:relative;width:96px;height:96px;flex:none}.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:20px;color:var(--gd)}
+.note{font-size:11px;color:var(--mute);text-align:center;margin-top:10px}
+.wk{display:flex;gap:6px}.wk span{flex:1;text-align:center;font-size:12px;padding:9px 0;border-radius:10px;background:var(--soft);color:var(--mute);font-weight:700}.wk .done{background:var(--g);color:#fff}.wk .rest{background:var(--mint);color:var(--gd)}.wk .today{outline:2px solid var(--g);color:var(--gd)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div class="stage">
+<div class="intro"><span class="tag">Proposed product concept</span>
+<h1>Make progress feel as rewarding as scrolling.</h1>
+<p>Tap through the concept: onboarding, today's micro-habits, an adaptive daily suggestion, the “urge to scroll” redirect, goals, progress, a growth-focused community and privacy controls. All figures are illustrative; nothing here is implemented.</p>
+<div class="jump" id="jump"></div></div>
+<div class="phone"><div class="top"><span>9:41</span><span>Concept</span></div><div class="scr" id="scr"></div><div class="nav" id="nav"></div><div id="sheet"></div></div>
+</div>
+<script>
+const I={home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',goals:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',prog:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',comm:'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M17 5a3.5 3.5 0 0 1 0 7M22 20c0-3-1.5-4.8-4-5.6"/>',priv:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>'};
+const S={scr:'onb',step:0,sel:{int:['English'],goal:['Improve English'],trig:['Boredom'],help:[],hard:[]},time:10,energy:1,habits:[{t:'10 min speaking practice',s:'English goal · 10 min',d:true},{t:'Read 5 pages',s:'Reading · 8 min',d:false},{t:'Plan tomorrow',s:'Study routine · 3 min',d:false}],tab:0,enc:{},tg:{usage:false,share:false,notif:true},sheet:null,wk:['done','done','rest','done','done','today','up'],urge:{s:0},ch:2,ref:{saved:false}};
+const $=id=>document.getElementById(id);
+const chip=(g,v)=>`<button class="chip ${S.sel[g].includes(v)?'on':''}" onclick="pick('${g}','${v}')">${v}</button>`;
+function pick(g,v){const a=S.sel[g];a.includes(v)?a.splice(a.indexOf(v),1):a.push(v);R()}
+function go(s){S.scr=s;S.sheet=null;R();$('scr').scrollTop=0}
+const done=()=>S.habits.filter(h=>h.d).length;
+function ring(p){const c=2*Math.PI*40;return `<div class="ring"><svg width="96" height="96" viewBox="0 0 96 96"><circle cx="48" cy="48" r="40" fill="none" stroke="var(--line)" stroke-width="9"/><circle cx="48" cy="48" r="40" fill="none" stroke="var(--g)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c*(1-p)}" transform="rotate(-90 48 48)"/></svg><b>${Math.round(p*100)}%</b></div>`}
+const SUG=[{h:'Feeling energized',t:'Try a 25-minute focused speaking session. You have the energy for a bigger step today.'},{h:'Feeling okay',t:'A 10-minute listening or speaking activity fits your available time.'},{h:'Feeling tired',t:'Take today lightly: a 3-minute review, or rest. Rest counts toward your plan.'}];
+const V={
+onb(){const st=S.step;const dots=`<div class="dots">${[0,1,2].map(i=>`<i class="${i<=st?'on':''}"></i>`).join('')}</div>`;
+if(st==0)return dots+`<h2>What do you enjoy?</h2><p class="sub">Pick a few interests. We use them to suggest activities you will actually like.</p><div class="chips">${['English','Programming','Fitness','Reading','Drawing','Study skills','Languages','Cooking'].map(v=>chip('int',v)).join('')}</div><button class="btn" onclick="S.step=1;R()">Continue</button>`;
+if(st==1)return dots+`<h2>What are you working toward?</h2><p class="sub">Choose goals and how much time you can give each day.</p><div class="chips">${['Improve English','Learn Python','Get fitter','Finish studies','Read more','Build a hobby'].map(v=>chip('goal',v)).join('')}</div><h3>Time per day: <span id="tv">${S.time}</span> min</h3><input type="range" min="5" max="60" step="5" value="${S.time}" style="width:100%;accent-color:var(--g);margin-bottom:18px" oninput="S.time=this.value;$('tv').textContent=this.value"><button class="btn" onclick="S.step=2;R()">Continue</button>`;
+return dots+`<h2>When do you scroll most?</h2><p class="sub">Optional. Self-reported triggers help us offer a better alternative at the right moment.</p><div class="chips">${['Boredom','Stress','Before bed','Between tasks','After work','Waiting'].map(v=>chip('trig',v)).join('')}</div><div class="card row sp"><div><b>Use screen-time data</b><div class="sub" style="margin:2px 0 0;font-size:12px">Optional. You can change this anytime.</div></div><button class="tg ${S.tg.usage?'on':''}" aria-label="Use screen-time data" onclick="S.tg.usage=!S.tg.usage;R()"></button></div><button class="btn" onclick="go('app')">Create my plan</button>`},
+app(){return [V.home,V.goals,V.prog,V.comm,V.priv][S.tab]()},
+home(){const p=done()/S.habits.length;const g=SUG[S.energy];
+return `<h2>Good morning</h2><p class="sub">Small steps toward your goals today.</p>
+<div class="card w row" style="gap:16px">${ring(p)}<div><b>${done()} of ${S.habits.length} done</b><div class="sub" style="margin:4px 0 8px">5 of 7 planned days this week <i style="font-size:10px">(illustrative)</i></div><div class="bar"><i style="width:${p*100}%"></i></div></div></div>
+<div class="card w"><div class="row sp"><h3 style="margin:0">Weekly target: 5 of 7</h3><b style="color:var(--gd);font-size:13px">${S.wk.filter(x=>x=='done'||x=='rest').length} counted</b></div><div class="wk" style="margin:10px 0">${S.wk.map((x,i)=>`<span class="${x}">${'MTWTFSS'[i]}</span>`).join('')}</div><div class="sub" style="margin:0 0 8px;font-size:12px">Rest days count. A missed day never resets your progress.</div><button class="enc ${S.wk[5]=='rest'?'on':''}" style="margin:0" onclick="S.wk[5]=S.wk[5]=='rest'?'today':'rest';R()">${S.wk[5]=='rest'?'Rest day set ✓':'Take a rest day today'}</button></div>
+<h3>Today's micro-habits</h3>${S.habits.map((h,i)=>`<button class="hab ${h.d?'done':''}" onclick="S.habits[${i}].d=!S.habits[${i}].d;R()"><span class="ck">${h.d?'✓':''}</span><span><b>${h.t}</b><small>${h.s}</small></span></button>`).join('')}
+<div class="card m"><h3>Today's suggestion</h3><div class="seg" style="background:var(--surf)">${['Energized','Okay','Tired'].map((e,i)=>`<button class="${S.energy==i?'on':''}" onclick="S.energy=${i};R()">${e}</button>`).join('')}</div><div class="sub" style="margin:0;color:var(--ink)">${g.t}</div></div>
+<button class="btn o" onclick="S.sheet='urge';S.urge={s:0};R()">Feel the urge to scroll?</button>
+<p class="note">${S.time}-minute plan · rule-based suggestions in this concept</p>`},
+goals(){const L=[['Long-term goal','Improve English for career development','Aug · 42% there'],['Monthly milestone','Complete the speaking module','Week 3 of 4'],['Weekly plan','Practice 5 days','4 of 5 so far'],['Daily micro-habit','10 minutes of speaking practice','Done today']];
+return `<h2>My goals</h2><p class="sub">Big goals become small daily actions.</p><div class="seg"><button class="on">English</button><button onclick="alert('Concept: add more goals')">Programming</button><button onclick="alert('Concept: add more goals')">+ Add</button></div>${L.map((l,i)=>`<div class="step ${i==3?'cur':''}" style="margin-left:${i*8}px"><div class="n">${4-i}</div><div><b>${l[1]}</b><div class="sub" style="margin:2px 0 0;font-size:12px">${l[0]} · ${l[2]}</div></div></div>`).join('')}<div class="card w"><h3>Reminder window</h3><div class="sub" style="margin:0">Evening, 7:30 pm. You chose this time, and you can change it anytime.</div></div>`},
+prog(){const d=[60,100,40,100,80,0,0],n='MTWTFSS';
+return `<h2>Progress</h2><p class="sub">Measured against your own plan, never against others.</p><div class="card w"><h3>Weekly consistency</h3><div class="chart">${d.map((v,i)=>`<div class="${v>=80?'t':''}"><i style="height:${Math.max(v,6)}%"></i>${n[i]}</div>`).join('')}</div></div>
+<div class="grid"><div class="met"><b>5/7</b><span>Habit adherence</span></div><div class="met"><b>2</b><span>Milestones done</span></div><div class="met"><b>42%</b><span>Goal progress</span></div><div class="met"><b>3 wks</b><span>Consistency</span></div></div>
+<div class="card m" style="margin-top:12px"><h3>Insight</h3><div class="sub" style="margin:0;color:var(--ink)">You practice most on weekday evenings. Weekends are a good place to add a lighter option.</div></div><div class="card w" style="margin-top:12px"><h3>Weekly reflection</h3><div class="sub" style="margin:0 0 10px">30 seconds to tell us what helped. We adjust next week's plan.</div><button class="btn o" onclick="S.ref.saved=false;S.sheet='reflect';R()">Start reflection</button></div><p class="note">Illustrative figures · a proposed concept</p>`},
+comm(){const T=['English','Coding','Fitness'],P=[[['SA','Sara','Finished the speaking module this week.'],['KH','Khalid','Day 4 of practice. Slow but steady.']],[['NA','Noura','Shipped my first Python project.'],['OM','Omar','Stuck on loops. Any tips?']],[['LY','Lina','3 of 3 planned workouts done.'],['FA','Faisal','Rest day today, back tomorrow.']]];
+return `<h2>Community</h2><p class="sub">Small groups around shared goals. No ranking, no endless feed.</p><div class="seg">${T.map((t,i)=>`<button class="${S.tab2==i||(!S.tab2&&i==0)?'on':''}" onclick="S.tab2=${i};R()">${t}</button>`).join('')}</div><div class="card m"><b>Accountability group · 4 members</b><div class="sub" style="margin:2px 0 0;font-size:12px">Weekly check-in on Thursday</div></div>${P[S.tab2||0].map((p,i)=>{const k=(S.tab2||0)+'-'+i;return `<div class="post"><div class="row"><div class="av">${p[0]}</div><div><b>${p[1]}</b><div class="sub" style="margin:0">${p[2]}</div></div></div><button class="enc ${S.enc[k]?'on':''}" onclick="S.enc['${k}']=!S.enc['${k}'];R()">${S.enc[k]?'Encouraged ✓':'Send encouragement'}</button></div>`}).join('')}<p class="note">That's everything for today. See you tomorrow.</p>`},
+priv(){const T=[['usage','Screen-time data','Used only to tailor suggestions'],['share','Share progress','Visible to your group only'],['notif','Reminders','At times you choose']];
+return `<h2>Privacy & control</h2><p class="sub">You decide what is collected and shared.</p>${T.map(t=>`<div class="card w row sp"><div><b>${t[1]}</b><div class="sub" style="margin:2px 0 0;font-size:12px">${t[2]}</div></div><button class="tg ${S.tg[t[0]]?'on':''}" aria-label="${t[1]}" onclick="S.tg['${t[0]}']=!S.tg['${t[0]}'];R()"></button></div>`).join('')}<div class="card"><h3>Good to know</h3><div class="sub" style="margin:0">Automatic screen-time tracking depends on phone permissions and platform APIs. The app never diagnoses addiction or personality.</div></div><button class="btn o" onclick="go('onb');S.step=0">Replay onboarding</button>`}};
+function sheet(){if(S.sheet=='reflect')return reflect();if(S.sheet=='urge'&&S.urge.s>0)return urge2();if(S.sheet!='urge')return '';const opts=[['Bored','b'],['Stressed','s'],['Tired','t'],['Just habit','h']];
+return `<div class="sheet" onclick="if(event.target==this){S.sheet=null;R()}"><div><h2 style="margin-top:0">Pause for a moment</h2><p class="sub">The urge is normal. What is behind it right now?</p>${opts.map(o=>`<button class="hab" onclick="S.urge={s:1,k:'${o[1]}'};R()"><span class="ck"></span><span><b>${o[0]}</b></span></button>`).join('')}<button class="btn o" onclick="S.sheet=null;R()">Not now</button></div></div>`}
+const ALT={b:['10-minute speaking practice','Matches your English goal'],s:['3 slow breaths, then read 5 pages','A calm reset before you decide'],t:['A 3-minute review, or rest','Rest counts toward your plan'],h:['Swap in one micro-habit','Do it where you usually scroll']};
+function urge2(){const s=S.urge,a=ALT[s.k];const cl=`onclick="if(event.target==this){S.sheet=null;R()}"`;
+if(s.s==1)return `<div class="sheet" ${cl}><div><h2 style="margin-top:0">Try this instead</h2><p class="sub">Picked for how you feel right now.</p><div class="card m"><b>${a[0]}</b><div class="sub" style="margin:4px 0 0">${a[1]}</div></div><button class="btn" onclick="S.urge.s=2;S.ch++;if(S.urge.k=='b')S.habits[0].d=true;R()">Start now</button><button class="btn o" style="margin-top:8px" onclick="S.sheet=null;R()">Not now</button></div></div>`;
+return `<div class="sheet" ${cl}><div style="text-align:center"><h2 style="margin-top:0">You chose differently</h2><p class="sub">That is how new habits start. ${S.ch} times this week <i>(illustrative)</i>.</p><button class="btn" onclick="S.sheet=null;S.tab=0;R()">Back to today</button></div></div>`}
+function reflect(){const r=S.ref,h=S.sel.hard;const adj=h.includes('Tired')?'lighter evening options':h.includes('Busy day')?'shorter 5-minute versions':'the same plan';
+const body=r.saved?`<h2 style="margin-top:0">Thanks for reflecting</h2><p class="sub">Next week we'll suggest ${adj}. You can change this anytime.</p><button class="btn" onclick="S.sheet=null;R()">Done</button>`:`<h2 style="margin-top:0">Weekly reflection</h2><p class="sub">30 seconds. What helped?</p><div class="chips">${['Evening time','Short sessions','Group check-in','Reminders'].map(v=>chip('help',v)).join('')}</div><p class="sub">What was hard?</p><div class="chips">${['Tired','Busy day','Low motivation','Boredom'].map(v=>chip('hard',v)).join('')}</div><button class="btn" onclick="S.ref.saved=true;R()">Save reflection</button>`;
+return `<div class="sheet" onclick="if(event.target==this){S.sheet=null;R()}"><div>${body}</div></div>`}
+const TABS=[['home','Today'],['goals','Goals'],['prog','Progress'],['comm','Community'],['priv','Privacy']];
+function R(){$('scr').innerHTML=V[S.scr]();$('nav').style.display=S.scr=='app'?'flex':'none';$('nav').innerHTML=TABS.map((t,i)=>`<button class="${S.tab==i?'on':''}" onclick="S.tab=${i};R();$('scr').scrollTop=0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${I[t[0]]}</svg>${t[1]}</button>`).join('');$('sheet').innerHTML=sheet()}
+$('jump').innerHTML=['Onboarding','Today','Goals','Progress','Community','Privacy'].map((n,i)=>`<button onclick="${i?`S.scr='app';S.tab=${i-1}`:`S.scr='onb';S.step=0`};R()">${n}</button>`).join('');
+R();
+</script></body></html>
